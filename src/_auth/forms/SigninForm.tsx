@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignInValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
+import logo from "../../assets/images/logo.svg"
 
 const SigninForm = () => {
   const isLoading = false;
@@ -37,7 +38,7 @@ const SigninForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="../../public/assets/images/logo.svg" />
+        <img src={logo} />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Welcome to Snapgram!

@@ -1,9 +1,10 @@
 import React from "react";
+import loader from "../../assets/icons/loader.svg";
 
 const Loader = () => {
   return (
     <div className="flex-center w-full">
-      <img src="../../public/assets/icons/loader.svg" width={20} />
+      <img src={loader} width={20} />
     </div>
   );
 };
