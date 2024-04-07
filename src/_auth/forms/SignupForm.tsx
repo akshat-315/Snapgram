@@ -22,6 +22,7 @@ import {
 } from "@/lib/react-query/queries";
 import { SignUpValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
+import logo from "../../assets/images/logo.svg";
 
 const SignupForm = () => {
   const { toast } = useToast();
@@ -87,7 +88,7 @@ const SignupForm = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+        <img src={logo} alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account

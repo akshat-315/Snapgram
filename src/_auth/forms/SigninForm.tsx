@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignInValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
-import logo from "../../assets/images/logo.svg"
+import logo from "../../assets/images/logo.svg";
+import { useUserContext } from "@/context/AuthContext";
+import { signInAccount } from "@/lib/appwrite/appwrite";
+import { useToast } from "@/components/ui/use-toast";
+import { useSignInAccount } from "@/lib/react-query/queries";
 
 const SigninForm = () => {
-  const isLoading = false;
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+
+  const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SignInValidation>>({
     resolver: zodResolver(SignInValidation),
@@ -28,12 +36,27 @@ const SigninForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignInValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  const handleSignIn = async (user: z.infer<typeof SignInValidation>) => {
+    const session = await signInAccount(user);
+
+    if (!session) {
+      toast({ title: "Login failed. Please try again." });
+
+      return;
+    }
+
+    const isLoggedIn = await checkAuthUser();
+
+    if (isLoggedIn) {
+      form.reset();
+
+      navigate("/");
+    } else {
+      toast({ title: "Login failed. Please try again." });
+
+      return;
+    }
+  };
 
   return (
     <Form {...form}>
@@ -49,7 +72,7 @@ const SigninForm = () => {
         </p>
 
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleSignIn)}
           className="flex flex-col gap-5 w-1/2 mt-4"
         >
           <FormField
@@ -79,7 +102,7 @@ const SigninForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isPending || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...
