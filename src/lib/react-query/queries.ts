@@ -7,6 +7,7 @@ import {
 
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import {
+  createPost,
   createUserAccount,
   signInAccount,
   signOutAccount,
@@ -30,3 +31,9 @@ export const useSignOutAccount = () => {
     mutationFn: signOutAccount,
   });
 };
+
+export const useCreatePost = () => {
+  return useMutation({
+    mutationFn: createPost
+  })
+}
