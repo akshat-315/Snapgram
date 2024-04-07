@@ -20,6 +20,7 @@ import { Models } from "appwrite";
 import { useUserContext } from "@/context/AuthContext";
 import { useCreatePost } from "@/lib/react-query/queries";
 import { useToast } from "@/components/ui/use-toast";
+import Loader from "../Loader";
 
 type PostFormProps = {
   post?: Models.Document;
@@ -30,7 +31,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
-  const { mutateAsync: createPost, isLoading: isLoadingCreate } =
+  const { mutateAsync: createPost, isPending: isLoadingCreate } =
     useCreatePost();
 
   const form = useForm<z.infer<typeof PostValidation>>({
@@ -140,8 +141,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
-            //Create the disabling functionality
+            disabled={isLoadingCreate}
           >
+            {isLoadingCreate && <Loader />}
             {action} Post
           </Button>
         </div>
