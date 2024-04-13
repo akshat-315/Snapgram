@@ -1,4 +1,4 @@
-import PostForm from "@/components/shared/forms/PostForm";
+import PostForm from "@/components/forms/PostForm";
 import addPost from "../../assets/icons/add-post.svg";
 
 const CreatePost = () => {

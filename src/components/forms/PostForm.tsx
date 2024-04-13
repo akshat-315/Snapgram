@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import FileUploader from "../FileUploader";
+import FileUploader from "../shared/FileUploader";
 import { useNavigate } from "react-router-dom";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
 import { useUserContext } from "@/context/AuthContext";
 import { useCreatePost } from "@/lib/react-query/queries";
 import { useToast } from "@/components/ui/use-toast";
-import Loader from "../Loader";
+import Loader from "../shared/Loader";
 
 type PostFormProps = {
   post?: Models.Document;
