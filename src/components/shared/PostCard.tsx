@@ -1,7 +1,6 @@
 import { useUserContext } from "@/context/AuthContext";
 import { multiFormatDateString } from "@/lib/utils";
 import { Models } from "appwrite";
-import React from "react";
 import { Link } from "react-router-dom";
 import edit from "../../assets/icons/edit.svg";
 import profilePlaceholder from "../../assets/icons/profile-placeholder.svg";
