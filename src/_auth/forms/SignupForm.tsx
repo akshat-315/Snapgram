@@ -27,7 +27,7 @@ import logo from "../../assets/images/logo.svg";
 const SignupForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
 
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
