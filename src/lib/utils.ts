@@ -5,6 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
+
 export function formatDateString(dateString: string) {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -23,13 +25,10 @@ export function formatDateString(dateString: string) {
   return `${formattedDate} at ${time}`;
 }
 
-export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
-
-//function to calculate time difference from the creation to the current time of the post
-export const multiFormatDateString = (timeStamp: string = ""): string => {
-  //convert timeStamp string to a unix timestamp
-  const timeStampNum = Math.round(new Date(timeStamp).getTime() / 1000);
-  const date: Date = new Date(timeStampNum * 1000);
+// 
+export const multiFormatDateString = (timestamp: string = ""): string => {
+  const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
+  const date: Date = new Date(timestampNum * 1000);
   const now: Date = new Date();
 
   const diff: number = now.getTime() - date.getTime();
@@ -40,7 +39,7 @@ export const multiFormatDateString = (timeStamp: string = ""): string => {
 
   switch (true) {
     case Math.floor(diffInDays) >= 30:
-      return formatDateString(timeStamp);
+      return formatDateString(timestamp);
     case Math.floor(diffInDays) === 1:
       return `${Math.floor(diffInDays)} day ago`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:

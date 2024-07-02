@@ -1,10 +1,9 @@
-import { useUserContext } from "@/context/AuthContext";
-import { multiFormatDateString } from "@/lib/utils";
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
-import edit from "../../assets/icons/edit.svg";
-import profilePlaceholder from "../../assets/icons/profile-placeholder.svg";
-import PostStats from "./PostStats";
+
+import { PostStats } from "@/components/shared";
+import { multiFormatDateString } from "@/lib/utils";
+import { useUserContext } from "@/context/AuthContext";
 
 type PostCardProps = {
   post: Models.Document;
@@ -12,15 +11,19 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
+
   if (!post.creator) return;
 
   return (
-    <div className="post-card mt-5 mb-5">
+    <div className="post-card">
       <div className="flex-between">
         <div className="flex items-center gap-3">
           <Link to={`/profile/${post.creator.$id}`}>
             <img
-              src={post.creator?.imageUrl || { profilePlaceholder }}
+              src={
+                post.creator?.imageUrl ||
+                "/assets/icons/profile-placeholder.svg"
+              }
               alt="creator"
               className="w-12 lg:h-12 rounded-full"
             />
@@ -41,11 +44,16 @@ const PostCard = ({ post }: PostCardProps) => {
             </div>
           </div>
         </div>
+
         <Link
           to={`/update-post/${post.$id}`}
-          className={`${user.id !== post.creator.$id && "hidden"}`}
-        >
-          <img src={edit} alt="edit" width={20} height={20} />
+          className={`${user.id !== post.creator.$id && "hidden"}`}>
+          <img
+            src={"/assets/icons/edit.svg"}
+            alt="edit"
+            width={20}
+            height={20}
+          />
         </Link>
       </div>
 
@@ -62,7 +70,7 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
 
         <img
-          src={post.imageUrl || { profilePlaceholder }}
+          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
           alt="post image"
           className="post-card_img"
         />

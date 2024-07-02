@@ -1,2 +1,17 @@
 /// <reference types="vite/client" />
-// lets TypeScript know that we are using VITE
+
+interface ImportMetaEnv {
+    readonly VITE_APPWRITE_URL: string;
+    readonly VITE_APPWRITE_PROJECT_ID: string;
+    readonly VITE_APPWRITE_DATABASE_ID: string;
+    readonly VITE_APPWRITE_STORAGE_ID: string;
+    readonly VITE_APPWRITE_USER_COLLECTION_ID: string;
+    readonly VITE_APPWRITE_POST_COLLECTION_ID: string;
+    readonly VITE_APPWRITE_SAVES_COLLECTION_ID: string;
+    // Add more environment variables as needed
+  }
+  
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+  

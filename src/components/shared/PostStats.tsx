@@ -9,10 +9,6 @@ import {
   useDeleteSavedPost,
   useGetCurrentUser,
 } from "@/lib/react-query/queries";
-import liked from "../../assets/icons/liked.svg";
-import like from "../../assets/icons/like.svg";
-import save from "../../assets/icons/save.svg";
-import saved from "../../assets/icons/saved.svg";
 
 type PostStatsProps = {
   post: Models.Document;
@@ -77,11 +73,14 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
 
   return (
     <div
-      className={`flex justify-between items-center z-20 ${containerStyles}`}
-    >
+      className={`flex justify-between items-center z-20 ${containerStyles}`}>
       <div className="flex gap-2 mr-5">
         <img
-          src={`${checkIsLiked(likes, userId) ? liked : like}`}
+          src={`${
+            checkIsLiked(likes, userId)
+              ? "/assets/icons/liked.svg"
+              : "/assets/icons/like.svg"
+          }`}
           alt="like"
           width={20}
           height={20}
@@ -93,7 +92,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
 
       <div className="flex gap-2">
         <img
-          src={isSaved ? saved : save}
+          src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
           alt="share"
           width={20}
           height={20}
